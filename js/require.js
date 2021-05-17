@@ -4,20 +4,18 @@ const vm = require('vm')
 
 function $require(modulePath){
 	let absPath = path.resolve(modulePath)
-	if (fs.existsSync(absPath)){
-		return absPath
+	if (!fs.existsSync(absPath)){
+		throw new Error(`Module not found`)
 	}
-	throw new Error(`Module not found`)
 
 	const fileContent = fs.readFileSync(modulePath, 'utf-8')
 	const script = new vm.Script(fileContent)
-	const module = {}
+	const ctx = { module: {}}
+	vm.createContext(ctx)
+	script.runInContext(ctx)
 
-	script.runInContext({
-		module,
-		require: $require
-	})
-
-	return module.exports
+	return ctx.module.exports
 }
 
+const b = $require('./b.js')
+console.log(b)

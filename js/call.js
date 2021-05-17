@@ -12,3 +12,10 @@ Function.prototype._bind = function(ctx, ...args1){
 	 	  return fn._call(ctx, ...args1.concat(args2))
 	 }
 }
+
+function sum(a){
+	console.log(a + this.b)
+}
+
+const addTen = sum._bind({b: 10})
+console.log(addTen(1))

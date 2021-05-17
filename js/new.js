@@ -1,5 +1,5 @@
-function $new(fn){
-	let ctx = new Object({})
+function _new(fn){
+	let ctx = {}
 	if (fn.prototype){
 		ctx.__proto__ = ctx.prototype
 	}
@@ -10,3 +10,9 @@ function $new(fn){
 	return ctx
 }
 
+function Lisa(){
+	this.beautiful = true
+}
+
+console.log(new Lisa())
+console.log(_new(Lisa))

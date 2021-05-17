@@ -9,3 +9,11 @@ function curry(fn){
 		}
 	}
 }
+
+
+function sum(a, b, c){
+	return a+b+c
+}
+
+const _sum = curry(sum)
+console.log(_sum(1)(2)(3))
